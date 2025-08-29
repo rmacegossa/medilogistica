@@ -1,6 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, TrendingUp, Truck, Users } from 'lucide-react';
 import medicalBackground from '@/assets/images/medical-background.svg';
+import acamadosImg from '@/assets/images/acamados.jpg';
+import seringasImg from '@/assets/images/seringas.jpg';
+import atadurasImg from '@/assets/images/ataduras.jpg';
+import resgateImg from '@/assets/images/resgate.jpg';
 
 // Paletas de cores alternativas que podem ser usadas no site
 // Paleta 1 - Verde Saúde: Foco em bem-estar e equilíbrio
@@ -130,7 +134,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4">Por que escolher a Medi Logística?</h2>
           <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12">Somos especializados em fornecer soluções completas para clínicas e hospitais em todo o Brasil.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Feature 1 */}
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all border border-gray-100 hover:border-primary-100 animate-fade-in-up delay-100">
               <div className="bg-primary-100 p-3 rounded-full w-fit mb-4">
@@ -183,61 +187,61 @@ const Home = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')" }}>
+              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${acamadosImg})` }}>
                 <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-white">Equipamentos Médicos</h3>
+                  <h3 className="text-xl font-semibold text-white">ACAMADOS</h3>
                 </div>
               </div>
               <div className="p-4">
                 <p className="text-gray-300 mb-4">
-                  Equipamentos de alta tecnologia para diagnóstico e tratamento.
+                  Produtos especializados para cuidados de pacientes acamados.
                 </p>
-                <a href="/produtos?categoria=equipamentos" className="text-primary-400 hover:text-primary-300 flex items-center">
+                <a href="/produtos?categoria=acamados" className="text-primary-400 hover:text-primary-300 flex items-center">
                   Ver produtos <ArrowRight className="h-4 w-4 ml-2" />
                 </a>
               </div>
             </div>
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1583947215259-38e31be8751f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')" }}>
+              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${seringasImg})` }}>
                 <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-white">Materiais Descartáveis</h3>
+                  <h3 className="text-xl font-semibold text-white">SERINGAS</h3>
                 </div>
               </div>
               <div className="p-4">
                 <p className="text-gray-300 mb-4">
-                  Produtos descartáveis essenciais para o dia a dia da sua clínica.
+                  Seringas e agulhas de alta qualidade para procedimentos médicos.
                 </p>
-                <a href="/produtos?categoria=descartaveis" className="text-primary-400 hover:text-primary-300 flex items-center">
+                <a href="/produtos?categoria=seringas" className="text-primary-400 hover:text-primary-300 flex items-center">
                   Ver produtos <ArrowRight className="h-4 w-4 ml-2" />
                 </a>
               </div>
             </div>
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1579154341098-e4e158cc7f55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')" }}>
+              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${resgateImg})` }}>
                 <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-white">Instrumentos Cirúrgicos</h3>
+                  <h3 className="text-xl font-semibold text-white">RESGATES</h3>
                 </div>
               </div>
               <div className="p-4">
                 <p className="text-gray-300 mb-4">
-                  Instrumentos de precisão para procedimentos cirúrgicos.
+                  Equipamentos essenciais para emergências e resgates médicos.
                 </p>
-                <a href="/produtos?categoria=instrumentos" className="text-primary-400 hover:text-primary-300 flex items-center">
+                <a href="/produtos?categoria=resgates" className="text-primary-400 hover:text-primary-300 flex items-center">
                   Ver produtos <ArrowRight className="h-4 w-4 ml-2" />
                 </a>
               </div>
             </div>
             <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')" }}>
+              <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${atadurasImg})` }}>
                 <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-white">Mobiliário Hospitalar</h3>
+                  <h3 className="text-xl font-semibold text-white">ATADURAS/BANDAGENS</h3>
                 </div>
               </div>
               <div className="p-4">
                 <p className="text-gray-300 mb-4">
-                  Móveis ergonômicos e funcionais para ambientes clínicos.
+                  Ataduras e bandagens para curativos e cuidados médicos.
                 </p>
-                <a href="/produtos?categoria=mobiliario" className="text-primary-400 hover:text-primary-300 flex items-center">
+                <a href="/produtos?categoria=ataduras" className="text-primary-400 hover:text-primary-300 flex items-center">
                   Ver produtos <ArrowRight className="h-4 w-4 ml-2" />
                 </a>
               </div>

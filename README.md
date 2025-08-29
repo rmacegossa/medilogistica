@@ -91,7 +91,7 @@ src/
 └── index.css           # Estilos globais
 
 public/
-├── produtos.csv        # Base de dados dos produtos
+├── produtos-correto.csv # Base de dados dos produtos
 └── placeholder-product.svg # Imagem placeholder
 ```
 
@@ -121,7 +121,7 @@ O projeto utiliza uma paleta de cores personalizada baseada em tons de azul:
 
 ## 📊 Gestão de Produtos
 
-Os produtos são carregados a partir do arquivo `public/produtos.csv` com a seguinte estrutura:
+Os produtos são carregados a partir do arquivo `public/produtos-correto.csv` com a seguinte estrutura:
 
 ```csv
 id,nome,categoria,subcategoria,preco,descricao,imagem,estoque,destaque
@@ -174,7 +174,7 @@ O site é totalmente responsivo com breakpoints:
 ## 🐛 Solução de Problemas
 
 ### Erro de carregamento de produtos
-- Verifique se o arquivo `produtos.csv` está na pasta `public/`
+- Verifique se o arquivo `produtos-correto.csv` está na pasta `public/`
 - Confirme se a estrutura do CSV está correta
 
 ### Problemas de build

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Truck, Package, Shield, Star, Tag } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 interface Produto {
-  id: number;
+  id: string;
   nome: string;
   categoria: string;
   subcategoria: string;
@@ -12,6 +13,8 @@ interface Produto {
   imagem: string;
   estoque: number;
   destaque: boolean;
+  marca?: string;
+  peso?: number;
 }
 
 const ProdutoDetalhe = () => {
@@ -26,59 +29,101 @@ const ProdutoDetalhe = () => {
     const carregarProduto = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/produtos.csv');
-        const data = await response.text();
+        const response = await fetch('/lista-completa.xlsx');
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         
-        // Converter CSV para array de objetos
-        const linhas = data.split('\n');
-        const cabecalho = linhas[0].split(',');
+        if (jsonData.length === 0) {
+          console.error('Arquivo XLSX está vazio');
+          setLoading(false);
+          return;
+        }
         
+        console.log('Dados carregados do XLSX:', jsonData.slice(0, 3));
+        
+        const cabecalho = jsonData[0] as string[];
         const produtosData: Produto[] = [];
         
-        for (let i = 1; i < linhas.length; i++) {
-          if (!linhas[i]) continue;
+        for (let i = 1; i < jsonData.length; i++) {
+          const linha = jsonData[i] as any[];
           
-          const valores = linhas[i].split(',');
+          // Verificar se a linha tem dados suficientes
+          if (!linha || linha.length < 3 || !linha[0] || String(linha[0]).trim() === '') continue;
+          
           const produto: any = {};
           
-          for (let j = 0; j < cabecalho.length; j++) {
-            let valor = valores[j];
+          for (let j = 0; j < cabecalho.length && j < linha.length; j++) {
+            let valor = linha[j];
             
-            // Tratamento para campos com vírgulas dentro de aspas
-            if (valor && valor.startsWith('"') && !valor.endsWith('"')) {
-              let k = j + 1;
-              while (k < valores.length && !valores[k].endsWith('"')) {
-                valor += ',' + valores[k];
-                k++;
-              }
-              if (k < valores.length) {
-                valor += ',' + valores[k];
-                j = k;
-              }
-            }
-            
-            // Remover aspas
-            if (valor && valor.startsWith('"') && valor.endsWith('"')) {
-              valor = valor.substring(1, valor.length - 1);
-            }
-            
-            // Converter tipos
-            if (cabecalho[j] === 'id' || cabecalho[j] === 'estoque') {
-              produto[cabecalho[j]] = parseInt(valor);
-            } else if (cabecalho[j] === 'preco') {
-              produto[cabecalho[j]] = parseFloat(valor);
-            } else if (cabecalho[j] === 'destaque') {
-              produto[cabecalho[j]] = valor.toLowerCase() === 'true';
+            // Converter para string se necessário
+            if (valor !== undefined && valor !== null) {
+              valor = String(valor);
             } else {
-              produto[cabecalho[j]] = valor;
+              valor = '';
+            }
+            
+            // Mapear campos do XLSX para o formato esperado
+            const nomeColuna = String(cabecalho[j]);
+            if (nomeColuna === 'SKU') {
+              produto.id = valor.trim();
+            } else if (nomeColuna === 'Nome produto') {
+              produto.nome = valor.trim();
+            } else if (nomeColuna === 'Descrição') {
+              produto.descricao = valor.trim();
+            } else if (nomeColuna === 'Preço de Venda') {
+              // Converter preço brasileiro (R$ 10,39) para número
+              if (typeof linha[j] === 'number') {
+                produto.preco = linha[j];
+              } else if (valor && typeof valor === 'string') {
+                // Remover "R$" e espaços, depois converter vírgula para ponto
+                const precoLimpo = valor.replace(/R\$\s*/g, '').trim().replace(',', '.');
+                produto.preco = parseFloat(precoLimpo) || 0;
+              } else {
+                produto.preco = 0;
+              }
+            } else if (nomeColuna === 'Estoque') {
+              if (typeof linha[j] === 'number') {
+                produto.estoque = Math.floor(linha[j]);
+              } else {
+                produto.estoque = parseInt(valor) || 0;
+              }
+            } else if (nomeColuna === 'Categoria Pai') {
+              produto.categoria = valor.trim();
+            } else if (nomeColuna === 'Categoria Filho') {
+              produto.subcategoria = valor.trim();
+            } else if (nomeColuna === 'Marca') {
+              produto.marca = valor.trim();
+            } else if (nomeColuna === 'Peso ( Kg )') {
+              // Tratar peso que pode ter vírgula como separador decimal
+              if (typeof linha[j] === 'number') {
+                produto.peso = linha[j];
+              } else if (valor && typeof valor === 'string') {
+                const pesoLimpo = valor.trim().replace(',', '.');
+                produto.peso = parseFloat(pesoLimpo) || 0;
+              } else {
+                produto.peso = 0;
+              }
             }
           }
           
-          produtosData.push(produto as Produto);
+          // Usar imagem padrão para todos os produtos
+          produto.imagem = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop&crop=center';
+          
+          // Só adicionar produtos com dados válidos e ID único
+          if (produto.id && produto.id.trim() !== '' && produto.nome && produto.nome.trim() !== '') {
+            // Verificar se já existe um produto com o mesmo ID
+            const jaExiste = produtosData.find(p => p.id === produto.id);
+            if (!jaExiste) {
+              produtosData.push(produto as Produto);
+            }
+          }
         }
         
-        // Encontrar o produto pelo ID
-        const produtoEncontrado = produtosData.find(p => p.id === parseInt(id || '0'));
+        // Encontrar o produto pelo ID (SKU)
+        const produtoEncontrado = produtosData.find(p => p.id === id);
         
         if (produtoEncontrado) {
           setProduto(produtoEncontrado);
@@ -104,7 +149,10 @@ const ProdutoDetalhe = () => {
     carregarProduto();
   }, [id]);
   
-  const formatarPreco = (preco: number) => {
+  const formatarPreco = (preco: number | undefined) => {
+    if (!preco || isNaN(preco)) {
+      return 'Preço não disponível';
+    }
     return preco.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL'
@@ -194,7 +242,7 @@ const ProdutoDetalhe = () => {
                   className="w-full h-full object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = '/placeholder-product.svg';
+                    target.src = '/medical-icon.svg';
                   }}
                 />
                 {produto.destaque && (
@@ -278,7 +326,7 @@ const ProdutoDetalhe = () => {
                 
                 <button className="flex-1 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
                   <ShoppingCart className="h-5 w-5" />
-                  Adicionar ao carrinho
+                  Adicionar à Lista de Orçamento
                 </button>
               </div>
             </div>
@@ -339,14 +387,14 @@ const ProdutoDetalhe = () => {
                   key={produto.id} 
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-48 bg-gray-50 flex items-center justify-center p-4">
                     <img 
                       src={produto.imagem} 
                       alt={produto.nome} 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/placeholder-product.svg';
+                        target.src = '/medical-icon.svg';
                       }}
                     />
                   </div>

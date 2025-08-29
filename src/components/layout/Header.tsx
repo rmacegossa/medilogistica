@@ -28,6 +28,9 @@ const Header = () => {
           <Link to="/produtos" className="text-gray-700 hover:text-primary-600 font-medium">
             Produtos
           </Link>
+          <Link to="/blog" className="text-gray-700 hover:text-primary-600 font-medium">
+            Blog
+          </Link>
           <Link to="/sobre" className="text-gray-700 hover:text-primary-600 font-medium">
             Sobre Nós
           </Link>
@@ -74,6 +77,13 @@ const Header = () => {
               onClick={toggleMenu}
             >
               Produtos
+            </Link>
+            <Link
+              to="/blog"
+              className="text-gray-700 hover:text-primary-600 font-medium py-2"
+              onClick={toggleMenu}
+            >
+              Blog
             </Link>
             <Link
               to="/sobre"
