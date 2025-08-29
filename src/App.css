@@ -1,0 +1,11 @@
+/* Estilos globais da aplicação */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Garantir que o conteúdo principal ocupe todo o espaço disponível */
+main {
+  flex: 1;
+}

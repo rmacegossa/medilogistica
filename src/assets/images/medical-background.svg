@@ -1,0 +1,80 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4338ca" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rectangle -->
+  <rect width="100%" height="100%" fill="url(#bg-gradient)" />
+  
+  <!-- Medical cross pattern -->
+  <g fill="#ffffff" fill-opacity="0.05">
+    <!-- Row 1 -->
+    <path d="M100,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M300,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M500,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M700,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M900,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M1100,50 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    
+    <!-- Row 2 -->
+    <path d="M200,200 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M400,200 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M600,200 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M800,200 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M1000,200 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    
+    <!-- Row 3 -->
+    <path d="M100,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M300,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M500,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M700,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M900,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+    <path d="M1100,350 h40 v40 h40 v40 h-40 v40 h-40 v-40 h-40 v-40 h40 z" />
+  </g>
+  
+  <!-- Medical icons -->
+  <g fill="#ffffff" fill-opacity="0.1">
+    <!-- Heartbeat line -->
+    <path d="M50,500 L100,500 L125,450 L150,550 L175,450 L200,550 L225,500 L275,500" stroke="#ffffff" stroke-width="8" fill="none" />
+    
+    <!-- Stethoscope -->
+    <circle cx="350" cy="480" r="20" />
+    <path d="M350,460 L350,400 L380,400 C390,400 400,410 400,420 L400,440 C400,450 410,460 420,460 C430,460 440,450 440,440 L440,420 C440,410 430,400 420,400" stroke="#ffffff" stroke-width="8" fill="none" />
+    
+    <!-- Syringe -->
+    <path d="M500,450 L550,500 L560,490 L510,440 Z" />
+    <path d="M520,430 L570,480" stroke="#ffffff" stroke-width="4" fill="none" />
+    <path d="M530,420 L580,470" stroke="#ffffff" stroke-width="4" fill="none" />
+    <path d="M540,410 L590,460" stroke="#ffffff" stroke-width="4" fill="none" />
+    
+    <!-- Pill -->
+    <ellipse cx="650" cy="480" rx="30" ry="20" transform="rotate(-45,650,480)" />
+    <path d="M635,465 L665,495" stroke="#ffffff" stroke-width="2" fill="none" />
+    
+    <!-- DNA strand -->
+    <path d="M750,400 C770,420 730,440 750,460 C770,480 730,500 750,520" stroke="#ffffff" stroke-width="4" fill="none" />
+    <path d="M800,400 C780,420 820,440 800,460 C780,480 820,500 800,520" stroke="#ffffff" stroke-width="4" fill="none" />
+    <path d="M750,420 L800,420" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M750,440 L800,440" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M750,460 L800,460" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M750,480 L800,480" stroke="#ffffff" stroke-width="3" fill="none" />
+    <path d="M750,500 L800,500" stroke="#ffffff" stroke-width="3" fill="none" />
+    
+    <!-- Hospital -->
+    <rect x="850" y="440" width="80" height="60" />
+    <rect x="870" y="400" width="40" height="40" />
+    <rect x="880" y="480" width="20" height="20" />
+    <path d="M880,420 L900,420 L900,440 L880,440 Z" fill="#ffffff" />
+    
+    <!-- First aid kit -->
+    <rect x="950" y="460" width="60" height="40" rx="5" />
+    <rect x="960" y="450" width="40" height="10" />
+    <path d="M970,470 L990,470 L990,450 L970,450 Z" fill="#ffffff" />
+    <path d="M970,480 L990,480" stroke="#ffffff" stroke-width="4" fill="none" />
+    <path d="M980,470 L980,490" stroke="#ffffff" stroke-width="4" fill="none" />
+  </g>
+</svg>
