@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, ArrowRight, User } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Dados dos artigos do blog
