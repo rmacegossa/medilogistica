@@ -83,8 +83,8 @@ const Catalogo = () => {
         setProdutosFiltrados(produtosData);
         
         // Extrair categorias e subcategorias únicas
-        const categoriasUnicas = [...new Set(produtosData.map(p => p.categoria))];
-        const subcategoriasUnicas = [...new Set(produtosData.map(p => p.subcategoria))];
+        const categoriasUnicas = [...new Set(produtosData.map(p => p.categoria).filter(Boolean))];
+        const subcategoriasUnicas = [...new Set(produtosData.map(p => p.subcategoria).filter(Boolean))];
         
         setCategorias(categoriasUnicas);
         setSubcategorias(subcategoriasUnicas);
@@ -107,34 +107,34 @@ const Catalogo = () => {
     if (termoBusca) {
       const termo = termoBusca.toLowerCase();
       resultado = resultado.filter(p => 
-        p.nome.toLowerCase().includes(termo) || 
-        p.descricao.toLowerCase().includes(termo)
+        (p.nome && p.nome.toLowerCase().includes(termo)) || 
+        (p.descricao && p.descricao.toLowerCase().includes(termo))
       );
     }
     
     // Aplicar filtro de categoria
     if (filtroCategoria) {
-      resultado = resultado.filter(p => p.categoria === filtroCategoria);
+      resultado = resultado.filter(p => p.categoria && p.categoria === filtroCategoria);
     }
     
     // Aplicar filtro de subcategoria
     if (filtroSubcategoria) {
-      resultado = resultado.filter(p => p.subcategoria === filtroSubcategoria);
+      resultado = resultado.filter(p => p.subcategoria && p.subcategoria === filtroSubcategoria);
     }
     
     // Aplicar ordenação
     switch (ordenacao) {
       case 'nome-asc':
-        resultado.sort((a, b) => a.nome.localeCompare(b.nome));
+        resultado.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
         break;
       case 'nome-desc':
-        resultado.sort((a, b) => b.nome.localeCompare(a.nome));
+        resultado.sort((a, b) => (b.nome || '').localeCompare(a.nome || ''));
         break;
       case 'preco-asc':
-        resultado.sort((a, b) => a.preco - b.preco);
+        resultado.sort((a, b) => (a.preco || 0) - (b.preco || 0));
         break;
       case 'preco-desc':
-        resultado.sort((a, b) => b.preco - a.preco);
+        resultado.sort((a, b) => (b.preco || 0) - (a.preco || 0));
         break;
       default:
         break;
@@ -232,7 +232,7 @@ const Catalogo = () => {
             
             <button
               onClick={limparFiltros}
-              className="text-sm text-primary-600 hover:text-primary-800 font-medium"
+              className="px-4 py-2 text-sm text-primary-600 hover:text-primary-800 font-medium border border-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
             >
               Limpar filtros
             </button>
